@@ -1,0 +1,435 @@
+/* Font import */
+@font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('../fonts/PPNeueMontreal-Book.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --line-color: #000;
+    --bg-color: #fff;
+    --text-color: #000;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'PP Neue Montreal', sans-serif;
+    font-weight: normal;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+img, video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Grid layout for desktop */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 1fr;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Grid lines */
+.grid::before, .grid::after {
+    content: "";
+    position: absolute;
+    background-color: var(--line-color);
+}
+
+/* Vertical line */
+.grid::before {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+/* Horizontal line */
+.grid::after {
+    width: 100%;
+    height: 1px;
+    left: 0;
+    top: 100px;
+}
+
+/* Header left */
+.header-left {
+    padding: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.header-left h1 {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* Header right */
+.header-right {
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Main title */
+.main-title {
+    padding: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.main-title h2 {
+    font-size: 80px;
+    line-height: 80px;
+    font-weight: normal;
+}
+
+/* Description */
+.description {
+    padding: 40px;
+    padding-left: 80px;
+}
+
+.description p {
+    font-size: 32px;
+    line-height: 44px;
+    margin-bottom: 20px;
+}
+
+/* Projects section */
+.projects {
+    width: 100%;
+    position: relative;
+}
+
+/* Project titles container - fixed on desktop */
+.projects-titles-container {
+    position: fixed;
+    left: 0;
+    top: 100px; /* Below the header line */
+    width: 50%;
+    height: calc(100vh - 100px);
+    z-index: 10;
+}
+
+.project-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.project-title.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.project-title h3 {
+    font-size: 60px;
+    line-height: 70px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.project-title p {
+    font-size: 24px;
+    line-height: 34px;
+    max-width: 80%;
+}
+
+/* Project galleries container */
+.projects-galleries-container {
+    margin-left: 50%; /* Align with the right half of the screen */
+    width: 50%;
+}
+
+.project {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Gallery */
+.project-gallery {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+}
+
+.gallery-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+}
+
+.gallery-item {
+    min-width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.gallery-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    display: flex;
+    gap: 20px;
+}
+
+.gallery-controls button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--line-color);
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s ease;
+}
+
+.gallery-controls button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile accordion description */
+.mobile-description {
+    display: none;
+}
+
+/* Mobile projects container */
+.mobile-projects {
+    display: none;
+}
+
+/* Media queries */
+@media (max-width: 1024px) {
+    .main-title h2 {
+        font-size: 60px;
+        line-height: 60px;
+    }
+    
+    .description p {
+        font-size: 24px;
+        line-height: 34px;
+    }
+    
+    .project-title h3 {
+        font-size: 50px;
+        line-height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Hide desktop components */
+    .desktop-only {
+        display: none;
+    }
+    
+    /* Reset grid for mobile */
+    .grid {
+        display: block;
+        min-height: auto;
+    }
+    
+    /* Remove desktop grid lines */
+    .grid::before, .grid::after {
+        display: none;
+    }
+    
+    /* Mobile header styling */
+    .header-left, .header-right {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .header-left {
+        border-bottom: 1px solid var(--line-color);
+    }
+    
+    .header-right {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+        border-bottom: 1px solid var(--line-color);
+    }
+    
+    /* Mobile title styling */
+    .main-title {
+        width: 100%;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .main-title h2 {
+        font-size: 40px;
+        line-height: 48px;
+    }
+    
+    /* Hide desktop description */
+    .description {
+        display: none;
+    }
+    
+    /* Show mobile accordion */
+    .mobile-description {
+        display: block;
+        padding: 0 20px;
+        margin-bottom: 40px;
+    }
+    
+    .accordion-toggle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        background: none;
+        border: none;
+        border-bottom: 1px solid var(--line-color);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 18px;
+        text-align: left;
+    }
+    
+    .plus-icon {
+        font-size: 24px;
+        transition: transform 0.3s ease;
+    }
+    
+    .accordion-toggle.active .plus-icon {
+        transform: rotate(45deg);
+    }
+    
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+    }
+    
+    .accordion-content.active {
+        max-height: 1000px;
+    }
+    
+    .accordion-content p {
+        padding: 20px 0;
+        font-size: 18px;
+        line-height: 28px;
+    }
+    
+    /* Show mobile projects */
+    .mobile-projects {
+        display: block;
+        width: 100%;
+    }
+    
+    .mobile-project {
+        margin-bottom: 60px;
+    }
+    
+    /* Mobile project galleries */
+    .mobile-project .project-gallery {
+        height: 80vh;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .mobile-project .project-gallery.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Mobile project titles */
+    .mobile-project .project-title {
+        position: static;
+        height: auto;
+        padding: 20px;
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    .mobile-project .project-title h3 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+    
+    .mobile-project .project-title p {
+        font-size: 18px;
+        line-height: 28px;
+        max-width: 100%;
+    }
+    
+    /* Mobile gallery controls */
+    .mobile-project .gallery-controls {
+        bottom: 20px;
+        left: 20px;
+    }
+}
+
+/* Animation classes */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+} 

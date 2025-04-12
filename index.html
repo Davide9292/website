@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davide Pedone | Experience Designer</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Davide Pedone - Experience Designer portfolio showcasing UX/UI design projects and creative solutions">
+    <meta name="keywords" content="UX design, UI design, experience design, portfolio, Davide Pedone">
+    <meta name="author" content="Davide Pedone">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Davide Pedone | Experience Designer">
+    <meta property="og:description" content="Experience design portfolio showcasing creative projects and solutions">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://davidepedone.com">
+    <meta property="og:image" content="https://davidepedone.com/images/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Davide Pedone | Experience Designer">
+    <meta name="twitter:description" content="Experience design portfolio showcasing creative projects and solutions">
+    <meta name="twitter:image" content="https://davidepedone.com/images/twitter-card.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preload font -->
+    <link rel="preload" href="fonts/PPNeueMontreal-Book.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div class="container">
+        <!-- Grid layout -->
+        <div class="grid">
+            <!-- Top left quadrant -->
+            <div class="header-left">
+                <h1>Davide Pedone</h1>
+            </div>
+            
+            <!-- Top right quadrant -->
+            <div class="header-right">
+                <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer">Linkedin</a>
+                <a href="mailto:davidepedone1@gmail.com">davidepedone1@gmail.com</a>
+            </div>
+            
+            <!-- Bottom left quadrant -->
+            <div class="main-title">
+                <h2>Experience Design is so much more than pixels.</h2>
+            </div>
+            
+            <!-- Mobile accordion description - placed right after main title for mobile -->
+            <div class="mobile-description">
+                <button class="accordion-toggle">
+                    <span>What I Mean</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p>Design transcends the mere glow of the screen, thoughtfully embracing both the tangible and the digital realms within their unique contexts. It's the deliberate crafting of moments of genuine wonder – those small sparks of surprise and delight – that have the power to unlock new perspectives, foster deeper understanding, and reveal unforeseen possibilities.</p>
+                    <p>This entire process is fundamentally fueled by a genuine empathy for people, a deep curiosity about their behaviors, and a commitment to designing solutions that truly resonate with their needs and aspirations.</p>
+                </div>
+            </div>
+            
+            <!-- Bottom right quadrant -->
+            <div class="description">
+                <p>Design transcends the mere glow of the screen, thoughtfully embracing both the tangible and the digital realms within their unique contexts. It's the deliberate crafting of moments of genuine wonder – those small sparks of surprise and delight – that have the power to unlock new perspectives, foster deeper understanding, and reveal unforeseen possibilities.</p>
+                <p>This entire process is fundamentally fueled by a genuine empathy for people, a deep curiosity about their behaviors, and a commitment to designing solutions that truly resonate with their needs and aspirations.</p>
+            </div>
+        </div>
+        
+        <!-- Projects section with new structure -->
+        <div class="projects">
+            <!-- Fixed container for all project titles on the left side - desktop only -->
+            <div class="projects-titles-container desktop-only">
+                <!-- Project 1 Title -->
+                <div class="project-title" data-project="project1">
+                    <h3>Project One</h3>
+                    <p>Brief description of the first project, highlighting key aspects and achievements.</p>
+                </div>
+                
+                <!-- Project 2 Title -->
+                <div class="project-title" data-project="project2">
+                    <h3>Project Two</h3>
+                    <p>Brief description of the second project, highlighting key aspects and achievements.</p>
+                </div>
+                
+                <!-- Add more project titles as needed -->
+            </div>
+            
+            <!-- Scrollable container for galleries on the right side - desktop only -->
+            <div class="projects-galleries-container desktop-only">
+                <!-- Project 1 Gallery -->
+                <div class="project" id="project1">
+                    <div class="project-gallery">
+                        <div class="gallery-container">
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 1 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 1 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 1 image"></div>
+                        </div>
+                        <div class="gallery-controls">
+                            <button class="prev-btn" aria-label="Previous item">←</button>
+                            <button class="next-btn" aria-label="Next item">→</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 Gallery -->
+                <div class="project" id="project2">
+                    <div class="project-gallery">
+                        <div class="gallery-container">
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 2 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 2 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 2 image"></div>
+                        </div>
+                        <div class="gallery-controls">
+                            <button class="prev-btn" aria-label="Previous item">←</button>
+                            <button class="next-btn" aria-label="Next item">→</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add more project galleries as needed -->
+            </div>
+            
+            <!-- Mobile-only projects container with correct order -->
+            <div class="mobile-projects">
+                <!-- Project 1 - Mobile -->
+                <div class="mobile-project" id="mobile-project1">
+                    <!-- Gallery first -->
+                    <div class="project-gallery">
+                        <div class="gallery-container">
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 1 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 1 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 1 image"></div>
+                        </div>
+                        <div class="gallery-controls">
+                            <button class="prev-btn" aria-label="Previous item">←</button>
+                            <button class="next-btn" aria-label="Next item">→</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Title after -->
+                    <div class="project-title">
+                        <h3>Project One</h3>
+                        <p>Brief description of the first project, highlighting key aspects and achievements.</p>
+                    </div>
+                </div>
+                
+                <!-- Project 2 - Mobile -->
+                <div class="mobile-project" id="mobile-project2">
+                    <!-- Gallery first -->
+                    <div class="project-gallery">
+                        <div class="gallery-container">
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 2 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 2 image"></div>
+                            <div class="gallery-item"><img src="images/placeholder.svg" alt="Project 2 image"></div>
+                        </div>
+                        <div class="gallery-controls">
+                            <button class="prev-btn" aria-label="Previous item">←</button>
+                            <button class="next-btn" aria-label="Next item">→</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Title after -->
+                    <div class="project-title">
+                        <h3>Project Two</h3>
+                        <p>Brief description of the second project, highlighting key aspects and achievements.</p>
+                    </div>
+                </div>
+                
+                <!-- Add more mobile projects as needed -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Script loading after content for better performance -->
+    <script src="js/script.js" defer></script>
+</body>
+</html> 
