@@ -68,14 +68,15 @@ img, video {
 /* Grid lines */
 .grid::before, .grid::after {
     content: "";
-    position: absolute;
+    position: fixed;
     background-color: var(--line-color);
+    z-index: 100;
 }
 
 /* Vertical line */
 .grid::before {
     width: 1px;
-    height: 100%;
+    height: 100vh;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
@@ -227,29 +228,54 @@ img, video {
     object-fit: cover;
 }
 
+/* Gallery controls */
 .gallery-controls {
     position: absolute;
     bottom: 40px;
     left: 40px;
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .gallery-controls button {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--line-color);
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 24px;
-    transition: background-color 0.3s ease;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    color: var(--line-color);
 }
 
 .gallery-controls button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--line-color);
+    color: white;
+}
+
+/* Gallery indicators */
+.gallery-indicators {
+    display: flex;
+    gap: 8px;
+    margin-left: 20px;
+}
+
+.gallery-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--line-color);
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-indicator.active {
+    opacity: 1;
 }
 
 /* Mobile accordion description */
@@ -437,6 +463,21 @@ img, video {
     .mobile-project .gallery-controls {
         bottom: 20px;
         left: 20px;
+    }
+    
+    .mobile-project .gallery-controls button {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    
+    .mobile-project .gallery-indicators {
+        gap: 6px;
+    }
+    
+    .mobile-project .gallery-indicator {
+        width: 5px;
+        height: 5px;
     }
 }
 

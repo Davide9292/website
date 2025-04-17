@@ -158,15 +158,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const prevBtn = gallery.querySelector('.prev-btn');
             const nextBtn = gallery.querySelector('.next-btn');
             const items = gallery.querySelectorAll('.gallery-item');
+            const indicators = gallery.querySelectorAll('.gallery-indicator');
             let currentIndex = 0;
             let touchStartX = 0;
             let touchEndX = 0;
             
             if (!container || !prevBtn || !nextBtn) return;
             
-            // Update position
+            // Update position and indicators
             const updateGalleryPosition = () => {
                 container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    if (index === currentIndex) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
             };
             
             // Previous button
