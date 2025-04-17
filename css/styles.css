@@ -68,7 +68,7 @@ img, video {
 /* Grid lines */
 .grid::before, .grid::after {
     content: "";
-    position: fixed;
+    position: absolute;
     background-color: var(--line-color);
     z-index: 100;
 }
@@ -80,6 +80,7 @@ img, video {
     left: 50%;
     top: 0;
     transform: translateX(-50%);
+    position: fixed;
 }
 
 /* Horizontal line */
@@ -88,6 +89,7 @@ img, video {
     height: 1px;
     left: 0;
     top: 100px;
+    position: absolute;
 }
 
 /* Header left */
@@ -200,7 +202,7 @@ img, video {
 .project-gallery {
     position: relative;
     overflow: hidden;
-    height: 100vh;
+    height: calc(100vh - 48px);
     width: 100%;
 }
 
@@ -231,26 +233,41 @@ img, video {
 /* Gallery controls */
 .gallery-controls {
     position: absolute;
-    bottom: 40px;
-    left: 40px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
     display: flex;
-    gap: 20px;
     align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+}
+
+.controls-left {
+    display: flex;
+    height: 100%;
 }
 
 .gallery-controls button {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid var(--line-color);
-    border-radius: 50%;
+    background-color: white;
+    border: none;
+    border-right: 1px solid var(--line-color);
     cursor: pointer;
     font-size: 20px;
     transition: all 0.3s ease;
     color: var(--line-color);
+    padding: 0;
+}
+
+.gallery-controls button:last-child {
+    border-right: none;
 }
 
 .gallery-controls button:hover {
@@ -262,7 +279,7 @@ img, video {
 .gallery-indicators {
     display: flex;
     gap: 8px;
-    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .gallery-indicator {
@@ -416,9 +433,7 @@ img, video {
     
     /* Mobile project galleries */
     .mobile-project .project-gallery {
-        height: 80vh;
-        width: 100%;
-        touch-action: pan-y pinch-zoom;
+        height: calc(80vh - 48px);
     }
     
     .mobile-project .gallery-container {
@@ -461,18 +476,18 @@ img, video {
     
     /* Mobile gallery controls */
     .mobile-project .gallery-controls {
-        bottom: 20px;
-        left: 20px;
+        height: 48px;
     }
     
     .mobile-project .gallery-controls button {
-        width: 36px;
-        height: 36px;
-        font-size: 18px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
     }
     
     .mobile-project .gallery-indicators {
         gap: 6px;
+        margin-right: 20px;
     }
     
     .mobile-project .gallery-indicator {
