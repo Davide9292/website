@@ -159,6 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const nextBtn = gallery.querySelector('.next-btn');
             const items = gallery.querySelectorAll('.gallery-item');
             let currentIndex = 0;
+            let touchStartX = 0;
+            let touchEndX = 0;
             
             if (!container || !prevBtn || !nextBtn) return;
             
@@ -177,6 +179,31 @@ document.addEventListener('DOMContentLoaded', () => {
             nextBtn.addEventListener('click', () => {
                 currentIndex = Math.min(items.length - 1, currentIndex + 1);
                 updateGalleryPosition();
+            });
+            
+            // Touch events for mobile
+            gallery.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            gallery.addEventListener('touchmove', (e) => {
+                touchEndX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            gallery.addEventListener('touchend', () => {
+                const swipeDistance = touchStartX - touchEndX;
+                const swipeThreshold = 50; // Minimum distance for a swipe
+                
+                if (Math.abs(swipeDistance) > swipeThreshold) {
+                    if (swipeDistance > 0) {
+                        // Swipe left
+                        currentIndex = Math.min(items.length - 1, currentIndex + 1);
+                    } else {
+                        // Swipe right
+                        currentIndex = Math.max(0, currentIndex - 1);
+                    }
+                    updateGalleryPosition();
+                }
             });
         });
     }
