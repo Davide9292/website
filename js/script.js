@@ -69,6 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const windowHeight = window.innerHeight;
         const galleriesContainer = document.querySelector('.projects-galleries-container');
         const galleryProjects = galleriesContainer.querySelectorAll('.project');
+        const mainTitle = document.querySelector('.main-title');
+        const mainTitleRect = mainTitle.getBoundingClientRect();
+        
+        // Check if main title is visible
+        const isMainTitleVisible = mainTitleRect.top < windowHeight && mainTitleRect.bottom > 0;
+        
+        // If main title is visible, hide all project titles
+        if (isMainTitleVisible) {
+            projectTitles.forEach(title => {
+                title.classList.remove('active');
+            });
+            return;
+        }
         
         // Check which gallery is currently most visible
         galleryProjects.forEach((project, index) => {

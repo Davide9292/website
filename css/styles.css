@@ -144,18 +144,19 @@ img, video {
 .projects-titles-container {
     position: fixed;
     left: 0;
-    top: 100px; /* Below the header line */
+    top: 0; /* Changed from 100px to 0 to use full viewport height */
     width: 50%;
-    height: calc(100vh - 100px);
+    height: 100vh; /* Changed to use full viewport height */
     z-index: 10;
+    pointer-events: none; /* Prevent interaction when not visible */
 }
 
 .project-title {
     position: absolute;
-    top: 0;
+    top: 50%; /* Center vertically */
     left: 0;
     width: 100%;
-    height: 100%;
+    transform: translateY(-50%); /* Center vertically */
     display: flex;
     flex-direction: column;
     justify-content: center;
