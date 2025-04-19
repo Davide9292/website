@@ -424,19 +424,39 @@ img, video {
     
     /* Show mobile projects */
     .mobile-projects {
-        display: block;
-        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
     }
     
     .mobile-project {
         margin-bottom: 60px;
+        position: relative;
+    }
+    
+    .mobile-project .project-gallery {
+        height: 80vh;
+        margin-bottom: 48px; /* Add space between gallery and title */
+    }
+    
+    .mobile-project .project-title {
+        position: static;
+        padding: 0 20px;
+        margin-top: 20px;
+    }
+    
+    .mobile-project .project-title h3 {
+        font-size: 30px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+    }
+    
+    .mobile-project .project-title p {
+        font-size: 18px;
+        line-height: 1.4;
     }
     
     /* Mobile project galleries */
-    .mobile-project .project-gallery {
-        height: 80vh;
-    }
-    
     .mobile-project .gallery-container {
         height: calc(100% - 48px);
     }
@@ -452,26 +472,6 @@ img, video {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-    
-    /* Mobile project titles */
-    .mobile-project .project-title {
-        position: static;
-        height: auto;
-        padding: 20px;
-        opacity: 1;
-        pointer-events: auto;
-    }
-    
-    .mobile-project .project-title h3 {
-        font-size: 30px;
-        line-height: 40px;
-    }
-    
-    .mobile-project .project-title p {
-        font-size: 18px;
-        line-height: 28px;
-        max-width: 100%;
     }
     
     /* Mobile gallery controls */
