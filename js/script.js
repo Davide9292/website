@@ -71,6 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const galleryProjects = galleriesContainer.querySelectorAll('.project');
         const mainTitle = document.querySelector('.main-title');
         const mainTitleRect = mainTitle.getBoundingClientRect();
+        const clientsSection = document.querySelector('.clients-section');
+        const clientsSectionRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
+        const projectTitlesContainer = document.querySelector('.projects-titles-container');
+        
+        // Check if clients section is visible
+        if (clientsSectionRect && clientsSectionRect.top < windowHeight) {
+            // Change the project titles container to absolute positioning
+            projectTitlesContainer.classList.add('absolute-positioning');
+        } else {
+            // Revert to fixed positioning
+            projectTitlesContainer.classList.remove('absolute-positioning');
+        }
         
         // Check if main title is visible
         const isMainTitleVisible = mainTitleRect.top < windowHeight && mainTitleRect.bottom > 0;
@@ -93,9 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalHeight = Math.min(rect.height, windowHeight);
             const visibilityPercentage = (visibleHeight / totalHeight) * 100;
             
-            // First project title appears when gallery is at least 50% visible
-            // Other project titles appear when gallery is more than 70% visible
-            const visibilityThreshold = index === 0 ? 50 : 70;
+            // All project titles appear when gallery is at least 50% visible
+            const visibilityThreshold = 50;
             
             if (visibilityPercentage > visibilityThreshold) {
                 // Activate the corresponding title
@@ -179,19 +190,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             };
             
-            // Previous button
+            // Previous button with endless carousel
             prevBtn.addEventListener('click', () => {
-                currentIndex = Math.max(0, currentIndex - 1);
+                if (currentIndex === 0) {
+                    currentIndex = items.length - 1; // Go to last item if at first
+                } else {
+                    currentIndex--;
+                }
                 updateGalleryPosition();
             });
             
-            // Next button
+            // Next button with endless carousel
             nextBtn.addEventListener('click', () => {
-                currentIndex = Math.min(items.length - 1, currentIndex + 1);
+                if (currentIndex === items.length - 1) {
+                    currentIndex = 0; // Go to first item if at last
+                } else {
+                    currentIndex++;
+                }
                 updateGalleryPosition();
             });
             
-            // Touch events for mobile
+            // Touch events for mobile with endless carousel
             gallery.addEventListener('touchstart', (e) => {
                 touchStartX = e.touches[0].clientX;
             }, { passive: true });
@@ -206,11 +225,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (Math.abs(swipeDistance) > swipeThreshold) {
                     if (swipeDistance > 0) {
-                        // Swipe left
-                        currentIndex = Math.min(items.length - 1, currentIndex + 1);
+                        // Swipe left (next)
+                        if (currentIndex === items.length - 1) {
+                            currentIndex = 0; // Go to first item if at last
+                        } else {
+                            currentIndex++;
+                        }
                     } else {
-                        // Swipe right
-                        currentIndex = Math.max(0, currentIndex - 1);
+                        // Swipe right (prev)
+                        if (currentIndex === 0) {
+                            currentIndex = items.length - 1; // Go to last item if at first
+                        } else {
+                            currentIndex--;
+                        }
                     }
                     updateGalleryPosition();
                 }
