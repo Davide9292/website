@@ -78,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const clientsRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
         const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
         
+        // Check if hero section is in view with a buffer to ensure it's completely gone
+        const isHeroVisible = heroRect && heroRect.bottom > 0;
+        
         // Check if projects section is in view
         const isProjectsVisible = projectsRect && 
             projectsRect.top < window.innerHeight && 
@@ -88,43 +91,46 @@ document.addEventListener('DOMContentLoaded', () => {
             clientsRect.top < window.innerHeight && 
             clientsRect.bottom > 0;
         
-        // Check if hero section is in view
-        const isHeroVisible = heroRect && 
-            heroRect.top < window.innerHeight && 
-            heroRect.bottom > 0;
-        
-        // Show project titles container when in projects section
+        // Only show project titles when:
+        // 1. Projects section is in view
+        // 2. Hero section is completely out of view (bottom is above the viewport)
+        // 3. Clients section is not yet in view
         if (isProjectsVisible && !isHeroVisible && !isClientsVisible) {
             projectTitlesContainer.style.opacity = '1';
-        } else {
-            // Hide titles with a small delay to allow for fade-out animation
-            setTimeout(() => {
-                projectTitlesContainer.style.opacity = '0';
-            }, 300);
-        }
-        
-        // Handle individual project titles
-        projectElements.forEach((project, index) => {
-            if (!project) return;
             
-            const rect = project.getBoundingClientRect();
-            const isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
-            
-            if (isInView && isProjectsVisible && !isHeroVisible && !isClientsVisible) {
-                // Hide all titles first
-                projectTitles.forEach(title => {
-                    title.classList.remove('active');
-                    title.classList.add('fade-out');
-                });
+            // Handle individual project titles
+            projectElements.forEach((project, index) => {
+                if (!project) return;
                 
-                // Show the current title
-                const currentTitle = projectTitles[index];
-                if (currentTitle) {
-                    currentTitle.classList.remove('fade-out');
-                    currentTitle.classList.add('active');
+                const rect = project.getBoundingClientRect();
+                // Check if project is in the middle of the viewport
+                const isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+                
+                if (isInView) {
+                    // Hide all titles first
+                    projectTitles.forEach(title => {
+                        title.classList.remove('active');
+                        title.classList.add('fade-out');
+                    });
+                    
+                    // Show the current title
+                    const currentTitle = projectTitles[index];
+                    if (currentTitle) {
+                        currentTitle.classList.remove('fade-out');
+                        currentTitle.classList.add('active');
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            // Hide titles container when hero is visible or in clients section
+            projectTitlesContainer.style.opacity = '0';
+            
+            // Hide all individual titles
+            projectTitles.forEach(title => {
+                title.classList.remove('active');
+                title.classList.add('fade-out');
+            });
+        }
     }
     
     /**

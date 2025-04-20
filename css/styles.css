@@ -151,10 +151,13 @@ img, video {
     left: 0;
     width: 100%;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 20;
     opacity: 0;
-    transition: opacity 0.3s ease;
     pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 /* Absolute positioning for when scrolling over clients section */
@@ -169,25 +172,30 @@ img, video {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: var(--font-serif);
-    font-size: var(--font-size-h1);
+    font-family: var(--title-font);
+    font-weight: 300;
+    font-size: 8vw;
     color: var(--color-text);
-    opacity: 0;
-    transition: opacity 0.5s ease;
     text-align: center;
     width: 100%;
     max-width: 1200px;
     padding: 0 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    /* Ensure titles don't interact with mouse events when not visible */
     pointer-events: none;
 }
 
 .project-title.active {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .project-title.fade-out {
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .project-title h3 {
@@ -195,12 +203,14 @@ img, video {
     line-height: 70px;
     font-weight: normal;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .project-title p {
     font-size: 16px;
     line-height: 24px;
     max-width: 80%;
+    text-align: left;
 }
 
 /* Project galleries container */
@@ -346,7 +356,7 @@ img, video {
 /* Clients section */
 .clients-section {
     width: 100%;
-    padding: 120px 0;
+    padding: 0 0 120px 0;
     text-align: center;
     position: relative;
     background-color: var(--bg-color);
@@ -670,4 +680,29 @@ img, video {
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+/* Core project specific styling */
+#project2 .project-gallery {
+    background-color: black;
+}
+
+#project2 .gallery-controls {
+    background-color: black;
+    border-top: 1px solid #333;
+}
+
+#project2 .gallery-controls button {
+    background-color: black;
+    color: white;
+    border-right: 1px solid #333;
+}
+
+#project2 .gallery-controls button:hover {
+    background-color: #333;
+    color: white;
+}
+
+#project2 .gallery-indicator {
+    background-color: white;
 } 
