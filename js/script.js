@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
         
         // Check if hero section is in view with a buffer to ensure it's completely gone
-        const isHeroVisible = heroRect && heroRect.bottom > 0;
+        const isHeroVisible = heroRect && heroRect.bottom > -100;
         
         // Check if projects section is in view
         const isProjectsVisible = projectsRect && 
