@@ -65,58 +65,64 @@ document.addEventListener('DOMContentLoaded', () => {
      * Handle project title visibility on desktop
      */
     function handleProjectTitleVisibility() {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const galleriesContainer = document.querySelector('.projects-galleries-container');
-        const galleryProjects = galleriesContainer.querySelectorAll('.project');
-        const mainTitle = document.querySelector('.main-title');
-        const mainTitleRect = mainTitle.getBoundingClientRect();
-        const clientsSection = document.querySelector('.clients-section');
-        const clientsSectionRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
+        const projectsContainer = document.querySelector('.projects');
         const projectTitlesContainer = document.querySelector('.projects-titles-container');
+        const projectElements = document.querySelectorAll('.project');
+        const projectTitles = document.querySelectorAll('.project-title');
+        const clientsSection = document.querySelector('.clients-section');
+        const heroSection = document.querySelector('.main-title');
         
-        // Check if clients section is visible
-        if (clientsSectionRect && clientsSectionRect.top < windowHeight) {
-            // Change the project titles container to absolute positioning
-            projectTitlesContainer.classList.add('absolute-positioning');
+        if (!projectsContainer || !projectTitlesContainer) return;
+        
+        const projectsRect = projectsContainer.getBoundingClientRect();
+        const clientsRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
+        const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
+        
+        // Check if projects section is in view
+        const isProjectsVisible = projectsRect && 
+            projectsRect.top < window.innerHeight && 
+            projectsRect.bottom > 0;
+        
+        // Check if clients section is in view
+        const isClientsVisible = clientsRect && 
+            clientsRect.top < window.innerHeight && 
+            clientsRect.bottom > 0;
+        
+        // Check if hero section is in view
+        const isHeroVisible = heroRect && 
+            heroRect.top < window.innerHeight && 
+            heroRect.bottom > 0;
+        
+        // Show project titles container when in projects section
+        if (isProjectsVisible && !isHeroVisible && !isClientsVisible) {
+            projectTitlesContainer.style.opacity = '1';
         } else {
-            // Revert to fixed positioning
-            projectTitlesContainer.classList.remove('absolute-positioning');
+            // Hide titles with a small delay to allow for fade-out animation
+            setTimeout(() => {
+                projectTitlesContainer.style.opacity = '0';
+            }, 300);
         }
         
-        // Check if main title is visible
-        const isMainTitleVisible = mainTitleRect.top < windowHeight && mainTitleRect.bottom > 0;
-        
-        // If main title is visible, hide all project titles
-        if (isMainTitleVisible) {
-            projectTitles.forEach(title => {
-                title.classList.remove('active');
-            });
-            return;
-        }
-        
-        // Check which gallery is currently most visible
-        galleryProjects.forEach((project, index) => {
+        // Handle individual project titles
+        projectElements.forEach((project, index) => {
+            if (!project) return;
+            
             const rect = project.getBoundingClientRect();
+            const isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
             
-            // Calculate visibility percentage
-            const visibleHeight = Math.min(rect.bottom, windowHeight) - 
-                                  Math.max(rect.top, 0);
-            const totalHeight = Math.min(rect.height, windowHeight);
-            const visibilityPercentage = (visibleHeight / totalHeight) * 100;
-            
-            // All project titles appear when gallery is at least 50% visible
-            const visibilityThreshold = 50;
-            
-            if (visibilityPercentage > visibilityThreshold) {
-                // Activate the corresponding title
-                projectTitles.forEach((title, titleIndex) => {
-                    if (titleIndex === index) {
-                        title.classList.add('active');
-                    } else {
-                        title.classList.remove('active');
-                    }
+            if (isInView && isProjectsVisible && !isHeroVisible && !isClientsVisible) {
+                // Hide all titles first
+                projectTitles.forEach(title => {
+                    title.classList.remove('active');
+                    title.classList.add('fade-out');
                 });
+                
+                // Show the current title
+                const currentTitle = projectTitles[index];
+                if (currentTitle) {
+                    currentTitle.classList.remove('fade-out');
+                    currentTitle.classList.add('active');
+                }
             }
         });
     }
