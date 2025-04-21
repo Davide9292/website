@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleProjectTitleVisibility() {
         const projectsContainer = document.querySelector('.projects');
         const projectTitlesContainer = document.querySelector('.projects-titles-container');
-        const projectElements = document.querySelectorAll('.projects-galleries-container .project'); // Target only desktop projects
+        const projectElements = document.querySelectorAll('.projects-galleries-container .project');
         const projectTitles = document.querySelectorAll('.projects-titles-container .project-title');
         const clientsSection = document.querySelector('.clients-section');
         const heroSection = document.querySelector('.main-title');
@@ -90,10 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isProjectsVisible && !isHeroVisible && !isClientsVisible) {
             projectTitlesContainer.style.opacity = '1';
             
-            let activeProjectIndex = -1; // Index of the project currently meeting visibility criteria
+            let activeProjectIndex = -1;
             const lastProjectIndex = projectElements.length - 1;
             
-            // Determine which project should be active based on scroll position
             projectElements.forEach((project, index) => {
                 if (!project) return;
                 
@@ -101,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isInView = false;
                 
                 if (index === 0) {
-                    // First project: appears when top passes 60% viewport height
-                    isInView = rect.top < window.innerHeight * 0.6 && rect.bottom > 0;
+                    // First project: appears when top passes 80% viewport height (appears earlier)
+                    isInView = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
                 } else if (index === lastProjectIndex) {
                     // Last project: stays visible until less than 60% visible from bottom
                     isInView = rect.bottom > window.innerHeight * 0.4 && rect.top < window.innerHeight;
@@ -116,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
-            // Identify the currently visually active title (has 'active' class)
             let currentActiveTitle = null;
             projectTitles.forEach(title => {
                 if (title.classList.contains('active')) {
@@ -124,15 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
-            // Determine the new title that *should* be active
             const newActiveTitle = activeProjectIndex !== -1 ? projectTitles[activeProjectIndex] : null;
             
-            // Handle transitions only if the active title needs to change
             if (newActiveTitle !== currentActiveTitle) {
                 // Fade out the old title
                 if (currentActiveTitle) {
                     currentActiveTitle.classList.remove('active');
-                    // Only add fade-out if it's actually being replaced
                     if (currentActiveTitle !== newActiveTitle) {
                         currentActiveTitle.classList.add('fade-out');
                     }
@@ -140,20 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Fade in the new title with a slight delay
                 if (newActiveTitle) {
-                    // Ensure fade-out is removed immediately if it was just applied
                     newActiveTitle.classList.remove('fade-out');
-                    
-                    // Add fade-in class to start the animation
                     newActiveTitle.classList.add('fade-in');
                     
                     // After a delay, remove fade-in and add active for final state
                     setTimeout(() => {
-                        // Check if this title should still be active before applying the class
                         const currentRect = projectElements[activeProjectIndex]?.getBoundingClientRect();
                         let shouldBeActive = false;
                         if(currentRect) {
                             if (activeProjectIndex === 0) {
-                                shouldBeActive = currentRect.top < window.innerHeight * 0.6 && currentRect.bottom > 0;
+                                // Re-check visibility for the first project using the updated threshold
+                                shouldBeActive = currentRect.top < window.innerHeight * 0.8 && currentRect.bottom > 0;
                             } else if (activeProjectIndex === lastProjectIndex) {
                                 shouldBeActive = currentRect.bottom > window.innerHeight * 0.4 && currentRect.top < window.innerHeight;
                             } else {
@@ -161,15 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                         
-                        // Only finalize if it should still be the active title
                         if (shouldBeActive && projectTitles[activeProjectIndex] === newActiveTitle) {
                             newActiveTitle.classList.remove('fade-in');
                             newActiveTitle.classList.add('active');
                         } else {
-                            // If conditions changed during the timeout, remove fade-in anyway
                             newActiveTitle.classList.remove('fade-in');
                         }
-                    }, 150); // 150ms delay, half of the 0.3s transition
+                    }, 300); // 300ms delay (as per user's previous change)
                 }
             }
             
