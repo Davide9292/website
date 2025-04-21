@@ -601,23 +601,98 @@ img, video {
 
     .mobile-project .gallery-indicators {
         /* Ensure defaults */
-        display: flex; /* Make sure indicators are still flex items */
+        display: flex; 
         gap: 6px;
         margin-right: 0; 
     }
-    .mobile-project .gallery-indicator {
-         /* Ensure defaults */
-        width: 5px;
-        height: 5px;
-        background-color: var(--line-color);
-        opacity: 0.3;
-    }
 
-    .mobile-project .gallery-indicator.active {
+    .mobile-project .project-title {
+        position: relative; 
+        padding: 20px 20px 40px 20px; 
+        background-color: var(--bg-color); 
+        color: var(--text-color);
+        /* Keep other styles */
+        display: block;
+        width: 100%;
         opacity: 1;
+        transform: none;
+        top: auto;
+        left: auto;
+        height: auto;
+        pointer-events: auto;
     }
 
-    /* --- Styles for EVEN mobile projects need adjustment too --- */
+    /* Re-apply explicit default text colors for ODD projects */
+    .mobile-project .project-title h3,
+    .mobile-project .project-title p {
+        color: var(--text-color); 
+        font-weight: normal; /* Ensure normal weight */
+    }
+    
+    .mobile-project .project-title a {
+        color: var(--text-color);
+    }
+    /* Make sure title H3 style is consistent */
+    .mobile-project .project-title h3 {
+        font-size: 30px;
+        line-height: 36px;
+        margin-bottom: 15px;
+    }
+    /* Make sure title P style is consistent */
+    .mobile-project .project-title p {
+        font-size: 18px;
+        line-height: 26px;
+        max-width: 100%;
+    }
+
+    /* --- Rest of default mobile project styles --- */
+    .mobile-project .gallery-item {
+        padding: 20px;
+    }
+    
+    .mobile-project .gallery-item img,
+    .mobile-project .gallery-item video {
+        max-width: calc(100%);
+        max-height: calc(100%);
+        border-radius: 20px;
+    }
+    
+    /* --- START: Mobile Alternating Backgrounds --- */
+
+    /* Even projects: black background, white text/elements */
+    .mobile-project:nth-child(even) {
+        background-color: var(--text-color); 
+        color: var(--bg-color); 
+    }
+
+    .mobile-project:nth-child(even) .project-title {
+        background-color: var(--text-color); 
+        color: var(--bg-color); 
+        padding: 20px 20px 40px 20px; 
+    }
+
+     /* Re-apply explicit text colors for EVEN projects */
+     .mobile-project:nth-child(even) .project-title h3,
+     .mobile-project:nth-child(even) .project-title p {
+         color: var(--bg-color); 
+         font-weight: normal; /* Ensure normal weight */
+     }
+
+    .mobile-project:nth-child(even) .project-title a {
+        color: var(--bg-color); 
+    }
+    /* Ensure title styles match odd */
+     .mobile-project:nth-child(even) .project-title h3 {
+        font-size: 30px;
+        line-height: 36px;
+        margin-bottom: 15px;
+    }
+    .mobile-project:nth-child(even) .project-title p {
+        font-size: 18px;
+        line-height: 26px;
+        max-width: 100%;
+    }
+
     .mobile-project:nth-child(even) .gallery-controls {
         background-color: var(--text-color); 
         border-top: 1px solid #333; 
@@ -632,13 +707,12 @@ img, video {
         width: 100%;
     }
 
-    /* No need to hide controls-left again, it's already hidden for all mobile projects */
-    
-    .mobile-project:nth-child(even) .gallery-indicators {
-        margin-right: 0; /* Remove margin */
-         display: flex; /* Make sure indicators are still flex items */
-        gap: 6px; /* Re-apply gap */
+    .mobile-project:nth-child(even) .gallery-controls button {
+        background-color: var(--text-color); 
+        color: var(--bg-color); 
+        border-right: 1px solid #333; 
     }
+
     .mobile-project:nth-child(even) .gallery-indicator {
         background-color: var(--bg-color); 
         opacity: 0.5; 
@@ -647,6 +721,14 @@ img, video {
      .mobile-project:nth-child(even) .gallery-indicator.active {
         opacity: 1; 
     }
+
+    .mobile-project:nth-child(even) .gallery-indicators {
+        margin-right: 0; /* Remove margin */
+         display: flex; 
+        gap: 6px; 
+    }
+
+    /* --- END: Mobile Alternating Backgrounds --- */
 
     .clients-section {
         padding: 80px 0;
