@@ -230,6 +230,11 @@ img, video {
     min-height: 100vh;
 }
 
+/* Add top border to first desktop project */
+#project1 {
+    border-top: 1px solid var(--line-color);
+}
+
 /* Gallery */
 .project-gallery {
     position: relative;
@@ -490,6 +495,7 @@ img, video {
         justify-content: space-between;
         padding-top: 20px;
         border-bottom: 1px solid var(--line-color);
+        font-size: 16px;
     }
     
     /* Mobile title styling */
@@ -528,8 +534,9 @@ img, video {
         border-bottom: 1px solid var(--line-color);
         cursor: pointer;
         font-family: inherit;
-        font-size: 18px;
+        font-size: 16px;
         text-align: left;
+        color: #000;
     }
     
     .plus-icon {
@@ -554,8 +561,8 @@ img, video {
     
     .accordion-content p {
         padding: 20px 0;
-        font-size: 18px;
-        line-height: 28px;
+        font-size: 16px;
+        line-height: 24px;
     }
     
     /* Show mobile projects */
@@ -570,6 +577,11 @@ img, video {
         position: relative;
         background-color: var(--bg-color); 
         color: var(--text-color); 
+    }
+
+    /* Add top border to first mobile project */
+    #mobile-project1 {
+        border-top: 1px solid var(--line-color);
     }
     
     /* Mobile project galleries - Adjust height and ensure text visibility */
