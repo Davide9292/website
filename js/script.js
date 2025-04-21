@@ -79,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const clientsRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
         const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
         
-        const isHeroVisible = heroRect && heroRect.top < 50;
+        // Check if the hero section is mostly off-screen (bottom edge is near the top)
+        const isHeroOffScreen = heroRect && heroRect.bottom < 100; 
         const isProjectsVisible = projectsRect && 
             projectsRect.top < window.innerHeight && 
             projectsRect.bottom > 0;
@@ -87,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             clientsRect.top < window.innerHeight && 
             clientsRect.bottom > 0;
         
-        if (isProjectsVisible && !isHeroVisible && !isClientsVisible) {
+        // Show titles only when projects are visible, hero is off-screen, and clients are not yet visible
+        if (isProjectsVisible && isHeroOffScreen && !isClientsVisible) {
             projectTitlesContainer.style.opacity = '1';
             
             let activeProjectIndex = -1;
