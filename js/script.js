@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (index === 0) {
                     // First project: Trigger when top is past 85% viewport height (earlier trigger)
-                    isInView = rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
+                    isInView = rect.top < window.innerHeight * 0.6 && rect.bottom > 0;
                 } else {
                     // All other projects (including last for now): standard center check
                     isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
