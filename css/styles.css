@@ -557,52 +557,85 @@ img, video {
     }
     
     .mobile-project {
-        margin-bottom: 60px;
+        /* Remove margin between projects */
+        margin-bottom: 0; 
         position: relative;
-        background-color: var(--bg-color);
-        color: var(--text-color);
+        background-color: var(--bg-color); 
+        color: var(--text-color); 
     }
     
+    /* Mobile project galleries - Keep original styles */
+    .mobile-project .project-gallery {
+        height: 80vh;
+        /* Remove margin-bottom from gallery, padding will be added to title */
+        margin-bottom: 0; 
+    }
+
+    .mobile-project .gallery-container {
+        height: calc(100% - 48px);
+    }
+
     .mobile-project .project-title {
-        background-color: var(--bg-color);
+        /* Ensure defaults */
+        position: relative; 
+        padding: 20px 20px 40px 20px; /* Add padding-bottom here */
+        background-color: var(--bg-color); 
+        color: var(--text-color);
+        display: block;
+        width: 100%;
+        opacity: 1;
+        transform: none;
+        top: auto;
+        left: auto;
+        height: auto;
+        pointer-events: auto;
+    }
+
+    /* Explicitly set default text colors for odd projects */
+    .mobile-project .project-title h3,
+    .mobile-project .project-title p {
         color: var(--text-color);
     }
     
     .mobile-project .project-title a {
         color: var(--text-color);
     }
-    
-    .mobile-project .project-title h3 {
-        font-size: 30px;
-        line-height: 36px;
-        margin-bottom: 15px;
-        font-weight: normal;
-    }
-    
-    .mobile-project .project-title p {
-        font-size: 18px;
-        line-height: 26px;
-        max-width: 100%;
-    }
-    
+
+    /* --- Rest of default mobile project styles --- */
     .mobile-project .gallery-controls {
+        /* Ensure defaults */
+        height: 48px;
         background-color: var(--bg-color);
         border-top: 1px solid var(--line-color);
     }
     
     .mobile-project .gallery-controls button {
+        /* Ensure defaults */
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
         background-color: var(--bg-color);
         color: var(--line-color);
         border-right: 1px solid var(--line-color);
+        border-bottom: none; /* Keep this */
     }
     
-    .mobile-project .gallery-controls button:hover {
-        background-color: var(--line-color);
-        color: white;
+    .mobile-project .gallery-indicators {
+        /* Ensure defaults */
+        gap: 6px;
+        margin-right: 20px;
     }
     
     .mobile-project .gallery-indicator {
+         /* Ensure defaults */
+        width: 5px;
+        height: 5px;
         background-color: var(--line-color);
+        opacity: 0.3;
+    }
+
+    .mobile-project .gallery-indicator.active {
+        opacity: 1;
     }
     
     .mobile-project .gallery-item {
@@ -616,10 +649,52 @@ img, video {
         border-radius: 20px;
     }
     
-    .mobile-project .gallery-controls button {
-        border-bottom: none;
+    /* --- START: Mobile Alternating Backgrounds --- */
+
+    /* Even projects: black background, white text/elements */
+    .mobile-project:nth-child(even) {
+        background-color: var(--text-color); /* Black background */
+        color: var(--bg-color); /* White text */
     }
-    
+
+    .mobile-project:nth-child(even) .project-title {
+        background-color: var(--text-color); /* Black background for title area */
+        color: var(--bg-color); /* White text */
+        padding: 20px 20px 40px 20px; /* Ensure padding is same */
+    }
+
+     /* Explicitly set text colors for even projects */
+     .mobile-project:nth-child(even) .project-title h3,
+     .mobile-project:nth-child(even) .project-title p {
+         color: var(--bg-color); 
+     }
+
+    .mobile-project:nth-child(even) .project-title a {
+        color: var(--bg-color); 
+    }
+
+    .mobile-project:nth-child(even) .gallery-controls {
+        background-color: var(--text-color); 
+        border-top: 1px solid #333; 
+    }
+
+    .mobile-project:nth-child(even) .gallery-controls button {
+        background-color: var(--text-color); 
+        color: var(--bg-color); 
+        border-right: 1px solid #333; 
+    }
+
+    .mobile-project:nth-child(even) .gallery-indicator {
+        background-color: var(--bg-color); 
+        opacity: 0.5; 
+    }
+
+     .mobile-project:nth-child(even) .gallery-indicator.active {
+        opacity: 1; 
+    }
+
+    /* --- END: Mobile Alternating Backgrounds --- */
+
     .clients-section {
         padding: 80px 0;
     }
@@ -657,96 +732,6 @@ img, video {
         width: 100%;
         padding: 0 20px;
     }
-
-    /* --- START: Mobile Alternating Backgrounds --- */
-
-    /* Default (odd) projects: white background, black text/elements */
-    .mobile-project {
-        margin-bottom: 60px;
-        position: relative;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-    }
-
-    .mobile-project .project-title {
-        background-color: var(--bg-color);
-        color: var(--text-color);
-    }
-
-    .mobile-project .project-title a {
-        color: var(--text-color);
-    }
-
-    .mobile-project .gallery-controls {
-        background-color: var(--bg-color);
-        border-top: 1px solid var(--line-color);
-    }
-
-    .mobile-project .gallery-controls button {
-        background-color: var(--bg-color);
-        color: var(--line-color);
-        border-right: 1px solid var(--line-color);
-    }
-
-    .mobile-project .gallery-controls button:hover {
-        background-color: var(--line-color);
-        color: white;
-    }
-
-    .mobile-project .gallery-indicator {
-        background-color: var(--line-color);
-    }
-
-    /* Even projects: black background, white text/elements */
-    .mobile-project:nth-child(even) {
-        background-color: var(--text-color);
-        color: var(--bg-color);
-    }
-
-    .mobile-project:nth-child(even) .project-title {
-        background-color: var(--text-color);
-        color: var(--bg-color);
-    }
-    
-    .mobile-project:nth-child(even) .project-title h3,
-    .mobile-project:nth-child(even) .project-title p {
-        color: var(--bg-color);
-    }
-
-    .mobile-project:nth-child(even) .project-title a {
-        color: var(--bg-color);
-    }
-    
-    .mobile-project:nth-child(even) .project-title a:hover {
-        opacity: 0.7;
-    }
-
-    .mobile-project:nth-child(even) .gallery-controls {
-        background-color: var(--text-color);
-        border-top: 1px solid #333;
-    }
-
-    .mobile-project:nth-child(even) .gallery-controls button {
-        background-color: var(--text-color);
-        color: var(--bg-color);
-        border-right: 1px solid #333;
-    }
-
-    .mobile-project:nth-child(even) .gallery-controls button:hover {
-        background-color: #333;
-        color: var(--bg-color);
-    }
-
-    .mobile-project:nth-child(even) .gallery-indicator {
-        background-color: var(--bg-color);
-        opacity: 0.5;
-    }
-
-    .mobile-project:nth-child(even) .gallery-indicator.active {
-        opacity: 1;
-    }
-
-    /* --- END: Mobile Alternating Backgrounds --- */
 }
 
 /* Animation classes */
