@@ -66,9 +66,9 @@ img, video {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100px 1fr;
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     position: relative;
-    border-bottom: #000;
+    border-bottom: 1px solid var(--line-color);
 }
 
 /* Grid lines */
@@ -123,12 +123,12 @@ img, video {
 .main-title {
     padding: 40px;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
 .main-title h2 {
-    font-size: 80px;
-    line-height: 80px;
+    font-size: 120px;
+    line-height: 120px;
     font-weight: normal;
 }
 
@@ -213,8 +213,8 @@ img, video {
 }
 
 .project-title p {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 32px;
     max-width: 100%; /* Changed from 80% to 100% */
     text-align: left;
 }
