@@ -566,39 +566,10 @@ img, video {
     
     /* Mobile project galleries - Keep original styles */
     .mobile-project .project-gallery {
-        height: 80vh;
+        /* Set fixed height */
+        height: 460px; 
         /* Remove margin-bottom from gallery, padding will be added to title */
         margin-bottom: 0; 
-    }
-
-    .mobile-project .gallery-container {
-        height: calc(100% - 48px);
-    }
-
-    .mobile-project .project-title {
-        /* Ensure defaults */
-        position: relative; 
-        padding: 20px 20px 40px 20px; /* Add padding-bottom here */
-        background-color: var(--bg-color); 
-        color: var(--text-color);
-        display: block;
-        width: 100%;
-        opacity: 1;
-        transform: none;
-        top: auto;
-        left: auto;
-        height: auto;
-        pointer-events: auto;
-    }
-
-    /* Explicitly set default text colors for odd projects */
-    .mobile-project .project-title h3,
-    .mobile-project .project-title p {
-        color: var(--text-color);
-    }
-    
-    .mobile-project .project-title a {
-        color: var(--text-color);
     }
 
     /* --- Rest of default mobile project styles --- */
@@ -607,45 +578,48 @@ img, video {
         height: 48px;
         background-color: var(--bg-color);
         border-top: 1px solid var(--line-color);
+        /* Center the items inside (indicators) */
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+
+    /* Hide the arrow buttons container */
+    .mobile-project .gallery-controls .controls-left {
+        display: none;
     }
     
-    .mobile-project .gallery-controls button {
-        /* Ensure defaults */
-        width: 48px;
-        height: 48px;
-        font-size: 20px;
-        background-color: var(--bg-color);
-        color: var(--line-color);
-        border-right: 1px solid var(--line-color);
-        border-bottom: none; /* Keep this */
-    }
-    
+    /* Remove margin from indicators now that they are centered */
     .mobile-project .gallery-indicators {
         /* Ensure defaults */
         gap: 6px;
-        margin-right: 20px;
-    }
-    
-    .mobile-project .gallery-indicator {
-         /* Ensure defaults */
-        width: 5px;
-        height: 5px;
-        background-color: var(--line-color);
-        opacity: 0.3;
+        margin-right: 0; 
     }
 
-    .mobile-project .gallery-indicator.active {
-        opacity: 1;
+    /* --- Styles for EVEN mobile projects need adjustment too --- */
+    .mobile-project:nth-child(even) .gallery-controls {
+        background-color: var(--text-color); 
+        border-top: 1px solid #333; 
+        /* Ensure centering applies here too */
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    
+
+    .mobile-project:nth-child(even) .gallery-indicators {
+        margin-right: 0; /* Remove margin */
+    }
+
+    /* No need to hide controls-left again, it's already hidden for all mobile projects */
+
     .mobile-project .gallery-item {
         padding: 20px;
     }
     
     .mobile-project .gallery-item img,
     .mobile-project .gallery-item video {
-        max-width: calc(100% - 40px);
-        max-height: calc(100% - 40px);
+        max-width: calc(100% - 20px);
+        max-height: calc(100% - 20px);
         border-radius: 20px;
     }
     
