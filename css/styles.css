@@ -519,7 +519,7 @@ img, video {
     .mobile-description {
         display: block;
         padding: 0 20px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         color: #000;
     }
     
@@ -528,10 +528,10 @@ img, video {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 0;
+        padding: 16px 0;
         background: none;
         border: none;
-        border-bottom: 1px solid var(--line-color);
+        border-bottom: none;
         cursor: pointer;
         font-family: inherit;
         font-size: 16px;
@@ -607,10 +607,11 @@ img, video {
         width: 100%; 
         height: 48px;
         background-color: var(--bg-color); 
-        border-top: 1px solid var(--line-color);
+        border-top: none;
         display: flex; 
         justify-content: center; 
         align-items: center;
+        border-top: 1px solid var(--line-color);
     }
 
     /* --- Hide the arrow button container on mobile --- */
