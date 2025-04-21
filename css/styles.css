@@ -129,6 +129,7 @@ img, video {
 .main-title h2 {
     font-size: 120px;
     line-height: 120px;
+    letter-spacing: -1px;
     font-weight: normal;
 }
 
@@ -232,7 +233,7 @@ img, video {
 
 /* Add top border to first desktop project */
 #project1 {
-    border-top: 1px solid var(--line-color);
+    /*border-top: 1px solid var(--line-color);*/
 }
 
 /* Gallery */
@@ -448,8 +449,9 @@ img, video {
 /* Media queries */
 @media (max-width: 1024px) {
     .main-title h2 {
-        font-size: 60px;
-        line-height: 60px;
+        font-size: 80px;
+        line-height: 80px;
+        letter-spacing: -1px;
     }
     
     .description p {
