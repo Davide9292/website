@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const clientsRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
         const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
         
-        const isHeroVisible = heroRect && heroRect.bottom > -100;
+        const isHeroVisible = heroRect && heroRect.top < 50;
         const isProjectsVisible = projectsRect && 
             projectsRect.top < window.innerHeight && 
             projectsRect.bottom > 0;
