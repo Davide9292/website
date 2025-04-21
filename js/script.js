@@ -104,45 +104,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!project) return;
                 
                 const rect = project.getBoundingClientRect();
+                
                 // Check if project is in the middle of the viewport
-                const isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+                // For the first project (index 0), show when 60% visible
+                let isInView;
+                if (index === 0) {
+                    // For the first project, show when 60% visible
+                    isInView = rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight / 2;
+                } else {
+                    // For other projects, use the standard center check
+                    isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+                }
                 
                 if (isInView) {
-                    // Store the current active title before changing
-                    let currentActiveTitle = null;
-                    projectTitles.forEach(title => {
-                        if (title.classList.contains('active')) {
-                            currentActiveTitle = title;
-                        }
-                    });
-                    
                     // Hide all titles first
                     projectTitles.forEach(title => {
                         if (title.classList.contains('active')) {
                             title.classList.remove('active');
                             title.classList.add('fade-out');
-                            title.classList.remove('fade-in');
                         }
                     });
                     
-                    // Show the new title
-                    const newTitle = projectTitles[index];
-                    if (newTitle && newTitle !== currentActiveTitle) {
-                        // Only apply animation if it's a different title
-                        setTimeout(() => {
-                            newTitle.classList.remove('fade-out');
-                            newTitle.classList.add('fade-in');
-                            
-                            // Small delay to trigger the animation sequence
-                            setTimeout(() => {
-                                newTitle.classList.remove('fade-in');
-                                newTitle.classList.add('active');
-                            }, 50);
-                        }, 300); // Wait for the previous title to fade out
-                    } else if (newTitle && newTitle === currentActiveTitle) {
-                        // If it's the same title, just keep it active
-                        newTitle.classList.remove('fade-out');
-                        newTitle.classList.add('active');
+                    // Show the current title
+                    const currentTitle = projectTitles[index];
+                    if (currentTitle) {
+                        currentTitle.classList.remove('fade-out');
+                        currentTitle.classList.add('active');
                     }
                 }
             });
@@ -150,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide titles container when hero is visible or in clients section
             projectTitlesContainer.style.opacity = '0';
             
-            // Hide all individual titles with animation
+            // Hide all individual titles
             projectTitles.forEach(title => {
                 if (title.classList.contains('active')) {
                     title.classList.remove('active');

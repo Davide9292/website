@@ -149,15 +149,15 @@ img, video {
     position: fixed;
     top: 0;
     left: 0;
-    width: 50%; /* Changed from 100% to 50% to match left half of viewport */
+    width: 50%; /* For desktop only */
     height: 100vh;
     z-index: 20;
     pointer-events: none;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Changed from center to flex-start */
+    justify-content: flex-start;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 
 /* Absolute positioning for when scrolling over clients section */
@@ -171,36 +171,31 @@ img, video {
 .project-title {
     position: absolute;
     top: 50%;
-    left: 0; /* Changed from 50% to 0 */
-    transform: translateY(-50%); /* Changed from translate(-50%, -50%) to translateY(-50%) */
+    left: 0;
+    transform: translateY(-50%);
     font-family: var(--font-primary);
     font-size: var(--font-size-title);
     color: var(--color-text);
-    text-align: left; /* Changed from center to left */
+    text-align: left;
     opacity: 0;
-    max-width: calc(50vw - 80px); /* Width calculation to respect the padding */
-    padding: 0 40px; /* Changed from 0 20px to 0 40px */
+    max-width: calc(50vw - 80px);
+    padding: 0 40px;
     width: 100%;
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Added transform to transition */
-    transform-origin: left center;
-    will-change: opacity, transform;
+    transition: opacity 0.3s ease;
 }
 
 .project-title.active {
     opacity: 1;
-    transform: translateY(-50%); /* Base position */
 }
 
 .project-title.fade-out {
     opacity: 0;
-    transform: translateY(-60%); /* Move up slightly when fading out */
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 
 .project-title.fade-in {
     opacity: 0;
-    transform: translateY(-40%); /* Start from below when fading in */
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 
 .project-title h3 {
@@ -666,38 +661,38 @@ img, video {
     .footer {
         padding: 30px 0;
     }
+    
+    /* Make titles container full width on mobile */
+    .projects-titles-container {
+        width: 100%;
+    }
+    
+    /* Update mobile title styles to be full width */
+    .project-title {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 20px;
+    }
 }
 
 /* Animation classes */
 .fade-in {
-    animation: fadeIn 0.5s ease forwards;
+    animation: fadeIn 0.3s ease forwards;
 }
 
 .fade-out {
-    animation: fadeOut 0.5s ease forwards;
+    animation: fadeOut 0.3s ease forwards;
 }
 
-/* New keyframes for enhanced transitions */
+/* Simplified keyframes for basic fade transitions */
 @keyframes fadeIn {
-    from { 
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeOut {
-    from { 
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to { 
-        opacity: 0;
-        transform: translateY(-20px);
-    }
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 /* Core project specific styling */
