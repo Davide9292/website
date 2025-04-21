@@ -231,10 +231,7 @@ img, video {
     min-height: 100vh;
 }
 
-/* Add top border to first desktop project */
-#project1 {
-    /*border-top: 1px solid var(--line-color);*/
-}
+
 
 /* Gallery */
 .project-gallery {
@@ -581,10 +578,7 @@ img, video {
         color: var(--text-color); 
     }
 
-    /* Add top border to first mobile project */
-    #mobile-project1 {
-        /*border-top: 1px solid var(--line-color);*/
-    }
+
     
     /* Mobile project galleries - Adjust height and ensure text visibility */
     .mobile-project .project-gallery {
@@ -824,7 +818,7 @@ img, video {
 
 #project2 .gallery-controls {
     background-color: black;
-    border-top: 1px solid #333;
+    border-top: none;
 }
 
 #project2 .gallery-controls button {
