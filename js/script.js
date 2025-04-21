@@ -68,76 +68,88 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleProjectTitleVisibility() {
         const projectsContainer = document.querySelector('.projects');
         const projectTitlesContainer = document.querySelector('.projects-titles-container');
-        const projectElements = document.querySelectorAll('.project');
-        const projectTitles = document.querySelectorAll('.project-title');
+        const projectElements = document.querySelectorAll('.projects-galleries-container .project'); // Target only desktop projects
+        const projectTitles = document.querySelectorAll('.projects-titles-container .project-title');
         const clientsSection = document.querySelector('.clients-section');
         const heroSection = document.querySelector('.main-title');
         
-        if (!projectsContainer || !projectTitlesContainer) return;
+        if (!projectsContainer || !projectTitlesContainer || projectElements.length === 0) return;
         
         const projectsRect = projectsContainer.getBoundingClientRect();
         const clientsRect = clientsSection ? clientsSection.getBoundingClientRect() : null;
         const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
         
-        // Check if hero section is in view with a buffer to ensure it's completely gone
         const isHeroVisible = heroRect && heroRect.bottom > -100;
-        
-        // Check if projects section is in view
         const isProjectsVisible = projectsRect && 
             projectsRect.top < window.innerHeight && 
             projectsRect.bottom > 0;
-        
-        // Check if clients section is in view
         const isClientsVisible = clientsRect && 
             clientsRect.top < window.innerHeight && 
             clientsRect.bottom > 0;
         
-        // Only show project titles when:
-        // 1. Projects section is in view
-        // 2. Hero section is completely out of view (bottom is above the viewport)
-        // 3. Clients section is not yet in view
         if (isProjectsVisible && !isHeroVisible && !isClientsVisible) {
             projectTitlesContainer.style.opacity = '1';
             
-            // Handle individual project titles
+            let activeProjectIndex = -1; // Index of the project currently meeting visibility criteria
+            const lastProjectIndex = projectElements.length - 1;
+            
+            // Determine which project should be active based on scroll position
             projectElements.forEach((project, index) => {
                 if (!project) return;
                 
                 const rect = project.getBoundingClientRect();
+                let isInView = false;
                 
-                // Check if project is in the middle of the viewport
-                // For the first project (index 0), show when 60% visible
-                let isInView;
                 if (index === 0) {
-                    // For the first project, show when 60% visible
-                    isInView = rect.top < window.innerHeight * 0.4 && rect.bottom > window.innerHeight / 2;
+                    // First project: appears when 50% visible from top
+                    isInView = rect.top < window.innerHeight * 0.5 && rect.bottom > 0; 
+                } else if (index === lastProjectIndex) {
+                    // Last project: stays visible until less than 60% visible from bottom
+                    isInView = rect.bottom > window.innerHeight * 0.4 && rect.top < window.innerHeight;
                 } else {
-                    // For other projects, use the standard center check
+                    // Other projects: standard center check
                     isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
                 }
                 
                 if (isInView) {
-                    // Hide all titles first
-                    projectTitles.forEach(title => {
-                        if (title.classList.contains('active')) {
-                            title.classList.remove('active');
-                            title.classList.add('fade-out');
-                        }
-                    });
-                    
-                    // Show the current title
-                    const currentTitle = projectTitles[index];
-                    if (currentTitle) {
-                        currentTitle.classList.remove('fade-out');
-                        currentTitle.classList.add('active');
-                    }
+                    activeProjectIndex = index;
                 }
             });
+            
+            // Identify the currently visually active title (has 'active' class)
+            let currentActiveTitle = null;
+            projectTitles.forEach(title => {
+                if (title.classList.contains('active')) {
+                    currentActiveTitle = title;
+                }
+            });
+            
+            // Determine the new title that *should* be active
+            const newActiveTitle = activeProjectIndex !== -1 ? projectTitles[activeProjectIndex] : null;
+            
+            // Handle transitions only if the active title needs to change
+            if (newActiveTitle !== currentActiveTitle) {
+                // Fade out the old title (if one exists)
+                if (currentActiveTitle) {
+                    currentActiveTitle.classList.remove('active');
+                    // Add fade-out class *only* if it's not immediately becoming active again
+                    if (currentActiveTitle !== newActiveTitle) {
+                        currentActiveTitle.classList.add('fade-out');
+                    }
+                }
+                // Fade in the new title (if one exists)
+                if (newActiveTitle) {
+                    // Ensure fade-out is removed before adding active
+                    newActiveTitle.classList.remove('fade-out'); 
+                    newActiveTitle.classList.add('active');
+                }
+            }
+            
         } else {
-            // Hide titles container when hero is visible or in clients section
+            // Hide titles container when outside the designated scroll area
             projectTitlesContainer.style.opacity = '0';
             
-            // Hide all individual titles
+            // Fade out any currently active title
             projectTitles.forEach(title => {
                 if (title.classList.contains('active')) {
                     title.classList.remove('active');
