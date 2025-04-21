@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://davidepedone.com/sitemap.xml 
+Disallow: / 
