@@ -100,13 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isInView = false;
                 
                 if (index === 0) {
-                    // First project: Revert to standard center check for reliability
-                    isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
-                } else if (index === lastProjectIndex) {
-                    // Last project: stays visible until less than 60% visible from bottom
-                    isInView = rect.bottom > window.innerHeight * 0.4 && rect.top < window.innerHeight;
+                    // First project: Trigger when top is past 85% viewport height (earlier trigger)
+                    isInView = rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
                 } else {
-                    // Other projects: standard center check
+                    // All other projects (including last for now): standard center check
                     isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
                 }
                 
@@ -133,13 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 
-                // Fade in the new title with a delay, removing the complex re-check
+                // Fade in the new title with a delay
                 if (newActiveTitle) {
                     newActiveTitle.classList.remove('fade-out');
                     newActiveTitle.classList.add('fade-in');
                     
-                    // After the delay, unconditionally remove fade-in and add active.
-                    // Subsequent scroll events will correct the state if needed.
                     setTimeout(() => {
                         // Check if the title element still exists before modifying
                         if (projectTitles[activeProjectIndex] === newActiveTitle) {
