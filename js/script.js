@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide all titles initially on desktop
             projectTitles.forEach(title => {
                 title.classList.remove('active');
+                title.classList.add('fade-out');
             });
             
             // Trigger scroll event to check if first gallery is already visible
@@ -107,17 +108,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
                 
                 if (isInView) {
-                    // Hide all titles first
+                    // Store the current active title before changing
+                    let currentActiveTitle = null;
                     projectTitles.forEach(title => {
-                        title.classList.remove('active');
-                        title.classList.add('fade-out');
+                        if (title.classList.contains('active')) {
+                            currentActiveTitle = title;
+                        }
                     });
                     
-                    // Show the current title
-                    const currentTitle = projectTitles[index];
-                    if (currentTitle) {
-                        currentTitle.classList.remove('fade-out');
-                        currentTitle.classList.add('active');
+                    // Hide all titles first
+                    projectTitles.forEach(title => {
+                        if (title.classList.contains('active')) {
+                            title.classList.remove('active');
+                            title.classList.add('fade-out');
+                            title.classList.remove('fade-in');
+                        }
+                    });
+                    
+                    // Show the new title
+                    const newTitle = projectTitles[index];
+                    if (newTitle && newTitle !== currentActiveTitle) {
+                        // Only apply animation if it's a different title
+                        setTimeout(() => {
+                            newTitle.classList.remove('fade-out');
+                            newTitle.classList.add('fade-in');
+                            
+                            // Small delay to trigger the animation sequence
+                            setTimeout(() => {
+                                newTitle.classList.remove('fade-in');
+                                newTitle.classList.add('active');
+                            }, 50);
+                        }, 300); // Wait for the previous title to fade out
+                    } else if (newTitle && newTitle === currentActiveTitle) {
+                        // If it's the same title, just keep it active
+                        newTitle.classList.remove('fade-out');
+                        newTitle.classList.add('active');
                     }
                 }
             });
@@ -125,10 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide titles container when hero is visible or in clients section
             projectTitlesContainer.style.opacity = '0';
             
-            // Hide all individual titles
+            // Hide all individual titles with animation
             projectTitles.forEach(title => {
-                title.classList.remove('active');
-                title.classList.add('fade-out');
+                if (title.classList.contains('active')) {
+                    title.classList.remove('active');
+                    title.classList.add('fade-out');
+                }
             });
         }
     }

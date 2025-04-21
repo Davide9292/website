@@ -149,15 +149,15 @@ img, video {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 50%; /* Changed from 100% to 50% to match left half of viewport */
     height: 100vh;
     z-index: 20;
     pointer-events: none;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Changed from center to flex-start */
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
 }
 
 /* Absolute positioning for when scrolling over clients section */
@@ -171,26 +171,36 @@ img, video {
 .project-title {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0; /* Changed from 50% to 0 */
+    transform: translateY(-50%); /* Changed from translate(-50%, -50%) to translateY(-50%) */
     font-family: var(--font-primary);
     font-size: var(--font-size-title);
     color: var(--color-text);
-    text-align: center;
+    text-align: left; /* Changed from center to left */
     opacity: 0;
-    max-width: 1200px;
-    padding: 0 20px;
+    max-width: calc(50vw - 80px); /* Width calculation to respect the padding */
+    padding: 0 40px; /* Changed from 0 20px to 0 40px */
     width: 100%;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Added transform to transition */
+    transform-origin: left center;
+    will-change: opacity, transform;
 }
 
 .project-title.active {
     opacity: 1;
+    transform: translateY(-50%); /* Base position */
 }
 
 .project-title.fade-out {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transform: translateY(-60%); /* Move up slightly when fading out */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project-title.fade-in {
+    opacity: 0;
+    transform: translateY(-40%); /* Start from below when fading in */
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .project-title h3 {
@@ -204,7 +214,7 @@ img, video {
 .project-title p {
     font-size: 16px;
     line-height: 24px;
-    max-width: 80%;
+    max-width: 100%; /* Changed from 80% to 100% */
     text-align: left;
 }
 
@@ -667,14 +677,27 @@ img, video {
     animation: fadeOut 0.5s ease forwards;
 }
 
+/* New keyframes for enhanced transitions */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 }
 
 /* Core project specific styling */
