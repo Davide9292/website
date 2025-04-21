@@ -564,12 +564,55 @@ img, video {
         color: var(--text-color); 
     }
     
-    /* Mobile project galleries - Keep original styles */
+    /* Mobile project galleries - Adjust height and ensure text visibility */
     .mobile-project .project-gallery {
-        /* Set fixed height */
-        height: 460px; 
-        /* Remove margin-bottom from gallery, padding will be added to title */
+        /* Remove fixed height from the overall gallery wrapper */
+        /* height: 460px; */ 
         margin-bottom: 0; 
+    }
+
+    .mobile-project .gallery-container {
+        /* Apply fixed height ONLY to the image/video container */
+        height: 460px;
+    }
+
+    .mobile-project .project-title {
+        position: relative; 
+        padding: 20px 20px 40px 20px; 
+        background-color: var(--bg-color); 
+        color: var(--text-color);
+        /* Keep other styles */
+        display: block;
+        width: 100%;
+        opacity: 1;
+        transform: none;
+        top: auto;
+        left: auto;
+        height: auto;
+        pointer-events: auto;
+    }
+
+    /* Re-apply explicit default text colors for ODD projects */
+    .mobile-project .project-title h3,
+    .mobile-project .project-title p {
+        color: var(--text-color); 
+        font-weight: normal; /* Ensure normal weight */
+    }
+    
+    .mobile-project .project-title a {
+        color: var(--text-color);
+    }
+    /* Make sure title H3 style is consistent */
+    .mobile-project .project-title h3 {
+        font-size: 30px;
+        line-height: 36px;
+        margin-bottom: 15px;
+    }
+    /* Make sure title P style is consistent */
+    .mobile-project .project-title p {
+        font-size: 18px;
+        line-height: 26px;
+        max-width: 100%;
     }
 
     /* --- Rest of default mobile project styles --- */
@@ -627,24 +670,36 @@ img, video {
 
     /* Even projects: black background, white text/elements */
     .mobile-project:nth-child(even) {
-        background-color: var(--text-color); /* Black background */
-        color: var(--bg-color); /* White text */
+        background-color: var(--text-color); 
+        color: var(--bg-color); 
     }
 
     .mobile-project:nth-child(even) .project-title {
-        background-color: var(--text-color); /* Black background for title area */
-        color: var(--bg-color); /* White text */
-        padding: 20px 20px 40px 20px; /* Ensure padding is same */
+        background-color: var(--text-color); 
+        color: var(--bg-color); 
+        padding: 20px 20px 40px 20px; 
     }
 
-     /* Explicitly set text colors for even projects */
+     /* Re-apply explicit text colors for EVEN projects */
      .mobile-project:nth-child(even) .project-title h3,
      .mobile-project:nth-child(even) .project-title p {
          color: var(--bg-color); 
+         font-weight: normal; /* Ensure normal weight */
      }
 
     .mobile-project:nth-child(even) .project-title a {
         color: var(--bg-color); 
+    }
+    /* Ensure title styles match odd */
+     .mobile-project:nth-child(even) .project-title h3 {
+        font-size: 30px;
+        line-height: 36px;
+        margin-bottom: 15px;
+    }
+    .mobile-project:nth-child(even) .project-title p {
+        font-size: 18px;
+        line-height: 26px;
+        max-width: 100%;
     }
 
     .mobile-project:nth-child(even) .gallery-controls {
