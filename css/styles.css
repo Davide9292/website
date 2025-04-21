@@ -607,11 +607,11 @@ img, video {
         width: 100%; 
         height: 48px;
         background-color: var(--bg-color); 
+        /* Remove top border */
         border-top: none;
         display: flex; 
         justify-content: center; 
         align-items: center;
-        border-top: 1px solid var(--line-color);
     }
 
     /* --- Hide the arrow button container on mobile --- */
@@ -716,7 +716,8 @@ img, video {
 
     .mobile-project:nth-child(even) .gallery-controls {
         background-color: var(--text-color); 
-        border-top: 1px solid #333; 
+        /* Remove top border for even projects too */
+        border-top: none; 
         /* Ensure centering applies here too */
         display: flex;
         justify-content: center;
