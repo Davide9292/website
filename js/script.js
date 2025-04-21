@@ -101,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isInView = false;
                 
                 if (index === 0) {
-                    // First project: appears when 50% visible from top
-                    isInView = rect.top < window.innerHeight * 0.5 && rect.bottom > 0; 
+                    // First project: appears when top passes 60% viewport height
+                    isInView = rect.top < window.innerHeight * 0.6 && rect.bottom > 0;
                 } else if (index === lastProjectIndex) {
                     // Last project: stays visible until less than 60% visible from bottom
                     isInView = rect.bottom > window.innerHeight * 0.4 && rect.top < window.innerHeight;
@@ -129,19 +129,47 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Handle transitions only if the active title needs to change
             if (newActiveTitle !== currentActiveTitle) {
-                // Fade out the old title (if one exists)
+                // Fade out the old title
                 if (currentActiveTitle) {
                     currentActiveTitle.classList.remove('active');
-                    // Add fade-out class *only* if it's not immediately becoming active again
+                    // Only add fade-out if it's actually being replaced
                     if (currentActiveTitle !== newActiveTitle) {
                         currentActiveTitle.classList.add('fade-out');
                     }
                 }
-                // Fade in the new title (if one exists)
+                
+                // Fade in the new title with a slight delay
                 if (newActiveTitle) {
-                    // Ensure fade-out is removed before adding active
-                    newActiveTitle.classList.remove('fade-out'); 
-                    newActiveTitle.classList.add('active');
+                    // Ensure fade-out is removed immediately if it was just applied
+                    newActiveTitle.classList.remove('fade-out');
+                    
+                    // Add fade-in class to start the animation
+                    newActiveTitle.classList.add('fade-in');
+                    
+                    // After a delay, remove fade-in and add active for final state
+                    setTimeout(() => {
+                        // Check if this title should still be active before applying the class
+                        const currentRect = projectElements[activeProjectIndex]?.getBoundingClientRect();
+                        let shouldBeActive = false;
+                        if(currentRect) {
+                            if (activeProjectIndex === 0) {
+                                shouldBeActive = currentRect.top < window.innerHeight * 0.6 && currentRect.bottom > 0;
+                            } else if (activeProjectIndex === lastProjectIndex) {
+                                shouldBeActive = currentRect.bottom > window.innerHeight * 0.4 && currentRect.top < window.innerHeight;
+                            } else {
+                                shouldBeActive = currentRect.top < window.innerHeight / 2 && currentRect.bottom > window.innerHeight / 2;
+                            }
+                        }
+                        
+                        // Only finalize if it should still be the active title
+                        if (shouldBeActive && projectTitles[activeProjectIndex] === newActiveTitle) {
+                            newActiveTitle.classList.remove('fade-in');
+                            newActiveTitle.classList.add('active');
+                        } else {
+                            // If conditions changed during the timeout, remove fade-in anyway
+                            newActiveTitle.classList.remove('fade-in');
+                        }
+                    }, 150); // 150ms delay, half of the 0.3s transition
                 }
             }
             
@@ -151,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Fade out any currently active title
             projectTitles.forEach(title => {
-                if (title.classList.contains('active')) {
-                    title.classList.remove('active');
+                if (title.classList.contains('active') || title.classList.contains('fade-in')) {
+                    title.classList.remove('active', 'fade-in');
                     title.classList.add('fade-out');
                 }
             });
