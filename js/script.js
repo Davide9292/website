@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isInView = false;
                 
                 if (index === 0) {
-                    // First project: appears when top passes 80% viewport height (appears earlier)
-                    isInView = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+                    // First project: Revert to standard center check for reliability
+                    isInView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
                 } else if (index === lastProjectIndex) {
                     // Last project: stays visible until less than 60% visible from bottom
                     isInView = rect.bottom > window.innerHeight * 0.4 && rect.top < window.innerHeight;
@@ -133,41 +133,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 
-                // Fade in the new title with a slight delay
+                // Fade in the new title with a delay, removing the complex re-check
                 if (newActiveTitle) {
                     newActiveTitle.classList.remove('fade-out');
                     newActiveTitle.classList.add('fade-in');
                     
-                    // After a delay, remove fade-in and add active for final state
+                    // After the delay, unconditionally remove fade-in and add active.
+                    // Subsequent scroll events will correct the state if needed.
                     setTimeout(() => {
-                        const currentRect = projectElements[activeProjectIndex]?.getBoundingClientRect();
-                        let shouldBeActive = false;
-                        if(currentRect) {
-                            if (activeProjectIndex === 0) {
-                                // Re-check visibility for the first project using the updated threshold
-                                shouldBeActive = currentRect.top < window.innerHeight * 0.8 && currentRect.bottom > 0;
-                            } else if (activeProjectIndex === lastProjectIndex) {
-                                shouldBeActive = currentRect.bottom > window.innerHeight * 0.4 && currentRect.top < window.innerHeight;
-                            } else {
-                                shouldBeActive = currentRect.top < window.innerHeight / 2 && currentRect.bottom > window.innerHeight / 2;
-                            }
-                        }
-                        
-                        if (shouldBeActive && projectTitles[activeProjectIndex] === newActiveTitle) {
+                        // Check if the title element still exists before modifying
+                        if (projectTitles[activeProjectIndex] === newActiveTitle) {
                             newActiveTitle.classList.remove('fade-in');
                             newActiveTitle.classList.add('active');
-                        } else {
-                            newActiveTitle.classList.remove('fade-in');
                         }
-                    }, 300); // 300ms delay (as per user's previous change)
+                    }, 300); // 300ms delay
                 }
             }
             
         } else {
-            // Hide titles container when outside the designated scroll area
+            // Hide titles container and fade out any active/fading-in titles
             projectTitlesContainer.style.opacity = '0';
-            
-            // Fade out any currently active title
             projectTitles.forEach(title => {
                 if (title.classList.contains('active') || title.classList.contains('fade-in')) {
                     title.classList.remove('active', 'fade-in');
