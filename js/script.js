@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroRect = heroSection ? heroSection.getBoundingClientRect() : null;
         
         // Check if the hero section is mostly off-screen (bottom edge is near the top)
-        const isHeroOffScreen = heroRect && heroRect.bottom < 100; 
+        const isHeroOffScreen = heroRect && heroRect.bottom < 80; 
         const isProjectsVisible = projectsRect && 
             projectsRect.top < window.innerHeight && 
             projectsRect.bottom > 0;
