@@ -632,6 +632,8 @@ img, video {
         padding: 20px 20px 40px 20px; 
         background-color: var(--bg-color); 
         color: var(--text-color);
+        /* Ensure no top border */
+        border-top: none;
         /* Keep other styles */
         display: block;
         width: 100%;
@@ -690,6 +692,8 @@ img, video {
         background-color: var(--text-color); 
         color: var(--bg-color); 
         padding: 20px 20px 40px 20px; 
+        /* Ensure no top border for even projects either */
+        border-top: none;
     }
 
      /* Re-apply explicit text colors for EVEN projects */
