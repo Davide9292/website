@@ -508,8 +508,8 @@ img, video {
     }
     
     .main-title h2 {
-        font-size: 40px;
-        line-height: 48px;
+        font-size: 60px;
+        line-height: 60px;
     }
     
     /* Hide desktop description */
@@ -583,7 +583,7 @@ img, video {
 
     /* Add top border to first mobile project */
     #mobile-project1 {
-        border-top: 1px solid var(--line-color);
+        /*border-top: 1px solid var(--line-color);*/
     }
     
     /* Mobile project galleries - Adjust height and ensure text visibility */
